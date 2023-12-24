@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block titulo %}Cadastro{% endblock titulo %}
+{% block content %}
+<div class="row">
+    <div class="container">
+        <h1>Cadastro</h1>
+        <hr>
+       
+        <form method="POST" action="{% url 'valida_cadastro' %}"> {% csrf_token %}
+            <div class="input-group mb-3">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Nome:"
+                    name='nome'>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="email" class="form-control" placeholder="e-mail:"
+                    name='email'>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="Telefone" class="form-control" placeholder="Telefone:"
+                    name='telefone'>
+                </div>
+            </div>
+                <button class="btn btn-outline-secondary" type="submit" >Enviar</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}
