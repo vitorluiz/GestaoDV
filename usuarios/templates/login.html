@@ -2,5 +2,38 @@
 {% block titulo %}Login{% endblock titulo %}
 {% block content %}
 <h1>Gestão DV</h1>
-<p>Sistema de Gerênciamento de Dados variáveis</p>
+<hr>
+<div class="row">
+    <div class="container">
+        <h1>Login</h1>
+        <hr>
+        <!-- Inicio do alerta-->
+
+       {% if status == '1' %}
+       <div class="alert alert-warning" role="alert">
+        Email ou Senha, inválido!
+      </div>
+        {% endif %}
+     <!-- Fim dos alert-->
+
+        <form method="POST" action="{% url 'valida_login' %}"> {% csrf_token %}
+            <div class="input-group mb-3">
+
+                <div class="input-group mb-3">
+                    <input type="email" class="form-control" placeholder="e-mail:"
+                    name='email'>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" placeholder="Senha:"
+                    name='senha'>
+                </div>
+
+            </div>
+                <button class="btn btn-outline-secondary" type="submit" >Logar</button>
+                <a href={% url 'cadastrar' %} class="btn btn-outline-primary">Cadastre-se</a>
+        </form>
+    </div>
+</div>
 {% endblock content %}
+
+

@@ -4,3 +4,6 @@ class Usuario(models.Model):
     nome = models.CharField(max_length=100)
     email = models.EmailField()
     senha = models.CharField(max_length=64)
+    telefone = models.CharField(max_length=14)
+
+    
