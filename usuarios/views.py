@@ -3,31 +3,33 @@ from django.http import HttpResponse
 from .models import Usuario
 from hashlib import sha256
 
+
 def login(request):
     status = request.GET.get('status')
     return render(request, 'login.html', {'status': status})
+
 
 def cadastro(request):
     status = request.GET.get('status')
     return render(request, 'cadastro.html', {'status': status})
 
-def valida_cadastro(request):
 
+def valida_cadastro(request):
     nome = request.POST.get('nome')
     senha = request.POST.get('senha')
     email = request.POST.get('email')
     telefone = request.POST.get('telefone')
 
-    if len(nome.strip()) == 0 or len(email.strip()) == 0:
+    if len(nome.strip()) == 0:
+        return redirect('/auth/cadastro/?status=1')
+    if len(email.strip()) == 0:
         return redirect('/auth/cadastro/?status=1')
     if len(senha) < 8:
-        return redirect('/auth/cadastro/?status=2')
-    
+        return redirect('/auth/cadastro/?status=2',)
     usuario = Usuario.objects.filter(email=email)
 
     if len(usuario) > 0:
         return redirect('/auth/cadastro/?status=3')
-    
     try:
 
         senha = sha256(senha.encode()).hexdigest()
@@ -37,24 +39,26 @@ def valida_cadastro(request):
                         telefone=telefone)
         usuario.save()
         return redirect('/auth/cadastro/?status=0')
+    
     except:
         return redirect('/auth/cadastro/?status=4')
     
-def valida_login(request):
 
+def valida_login(request):
     senha = request.POST.get('senha')
     email = request.POST.get('email')
 
-    senha = sha256(senha.encode()).hexdigest()
-   
+    senha = sha256(senha.encode()).hexdigest() 
     usuario = Usuario.objects.filter(email=email).filter(senha=senha)
 
     if len(usuario) == 0:
         return redirect('/auth/login/?status=1')
     elif len(usuario) > 0:
         request.session['logado'] = True
+        request.session['usuario_id'] = usuario[0].id
         return redirect('/plataforma/home/')
 
+
 def sair(request):
-    request.session['logado'] = None
+    request.session.flush()
     return redirect('/auth/login/')

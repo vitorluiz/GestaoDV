@@ -14,6 +14,11 @@
         Email ou Senha, inválido!
       </div>
         {% endif %}
+        {% if status == '2' %}
+        <div class="alert alert-warning" role="alert">
+         É necessário login para acessar o sistema!
+       </div>
+         {% endif %}
      <!-- Fim dos alert-->
 
         <form method="POST" action="{% url 'valida_login' %}"> {% csrf_token %}
