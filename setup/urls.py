@@ -8,4 +8,5 @@ urlpatterns = [
     path('auth/', include('usuarios.urls')),
     path('', lambda request: redirect('/auth/login/')),
     path('plataforma/', include('plataforma.urls')),
+    path('sair/',include('usuarios.urls')),
 ]

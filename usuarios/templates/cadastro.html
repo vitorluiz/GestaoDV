@@ -6,59 +6,46 @@
         <h1>Cadastro</h1>
         <hr>
         <!-- Inicio do alerta-->
-        {% if status == '0' %}
-        <div class="alert alert-success" role="alert">
-         Usuário cadastrado com sucesso!
-       </div>
-       {% endif %}
-
-       {% if status == '1' %}
-       <div class="alert alert-warning" role="alert">
-        Nome e Email, não podem ser vazio!
-      </div>
+        {% if messages %}
+        {% for i in messages %}
+        <div class="alert {{i.tags}}" role="alert">
+            {{i}}
+        </div>
+        {% endfor %}
         {% endif %}
 
-        {% if status == '2' %}
-        <div class="alert alert-warning" role="alert">
-         A senha deve ter no minímo 8 caracteres!
-       </div>
-       {% endif %}
+        {% if status == '0' %}
+        <div class="alert alert-success" role="alert">
+            Usuário cadastrado com sucesso!
+        </div>
+        {% endif %}
 
-       {% if status == '3' %}
-       <div class="alert alert-warning" role="alert">
-        Usuario ou email cadastrado!
-      </div>
-      {% endif %}
 
-      {% if status == '4' %}
-      <div class="alert alert-danger" role="alert">
-       Erro no sistema!
-     </div>
-     {% endif %}
-     <!-- Fim dos alert-->
+        {% if status == '4' %}
+        <div class="alert alert-danger" role="alert">
+            Erro no sistema!
+        </div>
+        {% endif %}
+        <!-- Fim dos alert-->
 
         <form method="POST" action="{% url 'valida_cadastro' %}"> {% csrf_token %}
             <div class="input-group mb-3">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Nome:"
-                    name='nome'>
+                    <input type="text" class="form-control" placeholder="Nome:" name='nome'>
                 </div>
                 <div class="input-group mb-3">
-                    
-                    <input type="email" class="form-control" placeholder="e-mail:"
-                    name='email'>
+
+                    <input type="email" class="form-control" placeholder="e-mail:" name='email'>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="Senha:"
-                    name='senha'>
+                    <input type="password" class="form-control" placeholder="Senha:" name='senha'>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="Telefone" class="form-control" placeholder="Telefone:"
-                    name='telefone'>
+                    <input type="Telefone" class="form-control" placeholder="Telefone:" name='telefone'>
                 </div>
             </div>
-                <button class="btn btn-outline-secondary" type="submit" >Cadastra-se</button>
-                <a href={% url 'login' %} class="btn btn-outline-primary">Login</a>
+            <button class="btn btn-outline-secondary" type="submit">Cadastra-se</button>
+            <a href={% url 'login' %} class="btn btn-outline-primary">Login</a>
         </form>
     </div>
 </div>
